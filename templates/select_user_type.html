@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>בחירת סוג משתמש</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div style="text-align: center; margin-top: 100px;">
+        <h2>ברוך הבא!</h2>
+        <p>אנא בחר את סוג המשתמש שלך:</p>
+
+        <a href="{{ url_for('login') }}" class="button">אני הורה</a>
+        <a href="{{ url_for('teacher_login_route') }}" class="button">אני מורה</a>
+    </div>
+
+</body>
+</html>

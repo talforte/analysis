@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>התחברות</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            direction: rtl;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 style="text-align: center;">התחברות</h2>
+
+    <form method="post">
+        <label for="email">אימייל:</label>
+        <input type="email" name="email" id="email" required>
+
+        <label for="password">סיסמה:</label>
+        <input type="password" name="password" id="password" required>
+
+        <input type="submit" value="התחבר">
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul style="color:red;">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <a href="{{ url_for('home') }}">חזור לדף הבית</a>
+</body>
+</html>

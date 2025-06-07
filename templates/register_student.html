@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>רישום תלמיד חדש</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <h2>רישום תלמיד חדש</h2>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="message">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <form method="post">
+      <label for="name">שם תלמיד:</label>
+      <input type="text" name="name" required>
+  
+      <label for="birth_date">תאריך לידה:</label>
+      <input type="date" name="birth_date" required>
+  
+      <!-- נכניס כאן את המין -->
+      <label for="gender">מין:</label>
+      <select name="gender" required>
+          <option value="">בחר מין</option>
+          <option value="זכר">זכר</option>
+          <option value="נקבה">נקבה</option>
+      </select>
+  
+      <input type="submit" value="רשום תלמיד">
+  </form>
+  
+
+    <br>
+    <a href="{{ url_for('dashboard') }}">⬅ חזרה ללוח הבקרה</a>
+
+</body>
+</html>

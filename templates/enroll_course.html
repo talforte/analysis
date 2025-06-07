@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>רישום לחוגים</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>רישום לחוגים עבור {{ student_name }}</h2>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flash-messages">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    <!-- טבלת מערכת שעות -->
+    <h3>📅 מערכת שעות של כל החוגים</h3>
+<table class="schedule-table">
+    <thead>
+        <tr>
+            <th>שם החוג</th>
+            <th>מדריך</th>
+            <th>רמה</th>
+            <th>שעה</th>
+            <th>סטטוס</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for course in courses %}
+        <tr>
+            <td>{{ course.name }}</td>
+            <td>{{ course.teacher_name }}</td>
+            <td>{{ course.level }}</td>
+            <td>{{ course.time }}</td>
+            <td class="{{ 'status-open' if course.status == 'פתוח' else 'status-closed' }}">{{ course.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+    <!-- טופס רישום -->
+    <div class="form-section">
+        <h3>✍️ רישום לחוג</h3>
+        <form method="post">
+            <label for="course_id">בחר חוג:</label>
+            <select name="course_id" required>
+                {% for course in courses %}
+                <option value="{{ course.id }}">
+                    {{ course.name }} - {{ course.day if course.day else '' }} בשעה {{ course.time }}
+                </option>
+                {% endfor %}
+            </select>
+            <br><br>
+            <button type="submit">רשום את {{ student_name }}</button>
+        </form>
+    </div>
+
+    <!-- חוגים שנבחרו -->
+    {% if enrollments %}
+    <h3>📚 חוגים שנבחרו</h3>
+    <ul>
+        {% for e in enrollments %}
+        <li>
+            {{ e.name }} - {{ e.time }}
+            <form action="{{ url_for('unenroll', enrollment_id=e.enrollment_id, student_id=student_id) }}" method="post" style="display:inline;">
+                <button type="submit" class="button danger small" onclick="return confirm('האם להסיר את התלמיד מהחוג?')">הסר</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<br>
+<a href="{{ url_for('dashboard') }}" class="back-link-text">⬅ חזרה ללוח הבקרה</a>
+
+
+
+</body>
+</html>

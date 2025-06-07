@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>סימון נוכחות – {{ course_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .attendance-form {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-top: 40px;
+        }
+        .student-row {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="attendance-form">
+        <h2>סימון נוכחות לקורס: {{ course_name }}</h2>
+
+        {% if students %}
+        <form method="post">
+            <label for="date">תאריך:</label>
+            <input type="date" name="date" required>
+            <br><br>
+
+            {% for student in students %}
+                <div class="student-row">
+                    <strong>{{ student['name'] }}</strong><br>
+                    <label><input type="radio" name="status_{{ student['id'] }}" value="נוכח" required> נוכח</label>
+                    <label><input type="radio" name="status_{{ student['id'] }}" value="נעדר"> נעדר</label>
+                    <label><input type="radio" name="status_{{ student['id'] }}" value="איחר"> איחר</label>
+                </div>
+            {% endfor %}
+
+            <input type="submit" value="שמור נוכחות">
+        </form>
+        {% else %}
+        <div class="message">
+            אין תלמידים רשומים לקורס זה. לא ניתן לסמן נוכחות.
+        </div>
+        {% endif %}
+
+        <br>
+        <a class="button" href="{{ url_for('teacher_course_view', course_id=course_id) }}">⬅ חזרה לקורס</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,260 @@
+/* === Reset & Base === */
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+    max-width: 1000px;
+    margin: auto;
+    padding: 30px;
+    line-height: 1.6;
+    direction: rtl;
+}
+
+h1, h2, h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+h1 { font-size: 34px; }
+h2 { font-size: 28px; }
+h3 { font-size: 22px; }
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* === Form Styles === */
+form {
+    background-color: white;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0 20px 0;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+input[type="submit"],
+button,
+.button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+
+input[type="submit"]:hover,
+button:hover,
+.button:hover {
+    background-color: #0056b3;
+}
+
+
+.button.small {
+    padding: 5px 14px;
+    font-size: 13px;
+    border-radius: 4px;
+}
+
+/* === Messages === */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.flash-messages,
+.message {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    padding: 12px;
+    border: 1px solid #bee5eb;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+/* === Utility Classes === */
+.center-text {
+    text-align: center;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.success {
+    color: green;
+    font-weight: bold;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+/* === Filter Section === */
+.filter-grid input[type="text"],
+.filter-grid input[type="date"],
+.filter-grid select {
+    height: 42px;
+    font-size: 15px;
+    padding: 10px 12px;
+    width: 200px;
+    box-sizing: border-box;
+}
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-buttons .button {
+    width: 100px;
+    height: 42px;
+    font-size: 15px;
+    padding: 8px 0;
+    text-align: center;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* כפתור סינון – ירוק */
+.button.success {
+    background-color: #28a745;
+    color: white;
+}
+.button.success:hover {
+    background-color: #218838;
+}
+
+/* כפתור איפוס – אדום */
+.button.danger {
+    background-color: #dc3545;
+    color: white;
+}
+.button.danger:hover {
+    background-color: #b02a37;
+}
+
+
+.filter-grid .date-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.date-group .dates {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.date-group input[type="date"] {
+    width: 100px;
+}
+
+.date-group label {
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #333;
+}
+
+.date-group .dates {
+    display: flex;
+    gap: 8px;
+}
+.date-range-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    color: #333;
+}
+
+.date-range-row input[type="date"] {
+    height: 42px;
+    padding: 8px 10px;
+    font-size: 15px;
+    width: 160px;
+}
+
+
+/* === Attendance Card === */
+.attendance-record {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.attendance-record p {
+    margin: 4px 0;
+}
+ul li form {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    background: none;
+    box-shadow: none;
+    border: none;
+}
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-table thead {
+    background-color: #3498db;
+    color: white;
+}
+
+.schedule-table th,
+.schedule-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    font-size: 15px;
+}
+
+.schedule-table tr:hover {
+    background-color: #f1f1f1;
+}

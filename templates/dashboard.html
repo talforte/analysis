@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>דשבורד - ההורה</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .student-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+            position: relative;
+        }
+
+        .student-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .student-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .student-header .emoji {
+            font-size: 36px;
+        }
+
+        .student-info {
+            font-size: 15px;
+            color: #444;
+        }
+
+        .course-list {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .course-list li {
+            margin-bottom: 4px;
+        }
+
+        .button.red {
+            background-color: #dc3545;
+        }
+
+        .button.red:hover {
+            background-color: #b02a37;
+        }
+
+        .button.green {
+            background-color: #28a745;
+        }
+
+        .button.green:hover {
+            background-color: #218838;
+        }
+
+        .logout-bottom {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            font-size: 16px;
+        }
+
+        .action-buttons {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+    </style>
+</head>
+<body>
+    <h2 class="center-text">התלמידים של {{ parent_name }}</h2>
+
+    {% if students %}
+        <div class="student-grid">
+            {% for student in students %}
+                <div class="student-card">
+                    <div class="student-header">
+                        <div class="emoji">
+                            {% if student.gender == 'נקבה' %}
+                                👧
+                            {% else %}
+                                👦
+                            {% endif %}
+                        </div>
+                        <div>
+                            <strong>{{ student.name }}</strong><br>
+                            
+                        </div>
+                    </div>
+                    <div class="student-info">
+                         תאריך לידה: {{ student.birth_date }}<br>
+                        נרשם בתאריך: {{ student.enrollment_date }}
+                    </div>
+
+                    <div class="student-info">
+                         רשום ל-{{ student.courses | length }} חוגים
+                    </div>
+
+                    {% if student.courses %}
+                        <div class="course-list">
+                            📚 חוגים:
+                            <ul>
+                              {% for course in student.courses %}
+                                  <li>
+                                      <strong>{{ course.name }}</strong><br>
+                                      🕒 שעה: {{ course.time }} | 📅 יום: {{ course.date }}<br>
+                                      👩‍🏫 מורה: {{ course.teacher_name }} | 🎯 רמה: {{ course.level }}<br>
+                                      📌 סטטוס: 
+                                      {% if course.status == 'פתוח' %}
+                                          <span class="success">פתוח</span>
+                                      {% else %}
+                                          <span class="error">סגור</span>
+                                      {% endif %}
+                                  </li>
+                              {% endfor %}
+                          </ul>
+                          
+                        </div>
+                    {% endif %}
+
+                    <div class="action-buttons">
+                        <a href="{{ url_for('enroll', student_id=student.id) }}" class="button small">✍️ רישום לחוגים</a>
+                        <a href="{{ url_for('delete_student', student_id=student.id) }}" class="button red small" onclick="return confirm('האם אתה בטוח שברצונך למחוק את התלמיד?')">🗑️ מחק תלמיד</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="center-text">אין תלמידים להצגה.</p>
+    {% endif %}
+
+    <div style="text-align: center; margin-top: 40px;">
+        <a href="{{ url_for('register_student') }}" class="button green">➕ רישום תלמיד חדש</a>
+    </div>
+
+    <div class="logout-bottom">
+        <a href="{{ url_for('logout') }}" class="button danger">🚪 התנתקות</a>
+    </div>
+</body>
+</html>

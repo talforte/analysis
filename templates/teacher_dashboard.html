@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>לוח המורה</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .dashboard-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-top: 40px;
+        }
+
+        .course-card {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .course-name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        .course-meta {
+            color: #555;
+            margin: 8px 0 16px;
+        }
+
+        .dashboard-title {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #2c3e50;
+        }
+
+        .dashboard-actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <h1 class="dashboard-title">שלום {{ teacher_name }}</h1>
+        <h2>הקורסים שלך:</h2>
+
+        {% if courses %}
+            {% for course in courses %}
+                <div class="course-card">
+                    <div class="course-name">{{ course['name'] }}</div>
+                    <div class="course-meta">רמה: {{ course['level'] }} | שעה: {{ course['time'] }} | יום: {{ course['date'] }}</div>
+                    <a class="button" href="{{ url_for('teacher_course_view', course_id=course['id']) }}">📋 ניהול תלמידים</a>
+                    <a class="button" href="{{ url_for('take_attendance', course_id=course['id']) }}" style="margin-right: 10px;">📝 סימון נוכחות</a>
+                    <a href="{{ url_for('teacher_attendance_history') }}" class="button">📊 צפייה בהיסטוריית נוכחות</a>
+
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>אין קורסים פעילים המשויכים אליך כרגע.</p>
+        {% endif %}
+                
+        <div class="dashboard-actions">
+            <a class="button danger" href="{{ url_for('logout') }}">🚪 התנתקות</a>
+        </div>
+    </div>
+
+</body>
+</html>
